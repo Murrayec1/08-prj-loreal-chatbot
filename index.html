@@ -2,65 +2,103 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat Assistant</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="L'Oréal AI Beauty Guide - Get personalized beauty tips, skincare routines, and product recommendations from our AI chatbot."
+    />
+    <meta name="theme-color" content="#ff69b4" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <title>L'Oréal AI Beauty Guide - Personalized Beauty Assistant</title>
+
+    <!-- Preload critical fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
       rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- L'Oréal 90s Grunge Inspired Styles -->
+    <link rel="stylesheet" href="grunge-style.css" />
   </head>
 
   <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <div class="page-wrapper">
-      <!------- Header / Branding ------->
-      <header class="site-header">
-        <h1 class="site-title">Smart Product Advisor</h1>
+      <header class="site-header" role="banner">
+        <img
+          src="img/loreal-logo.png"
+          alt="L'Oréal company logo"
+          class="logo"
+        />
+        <h1 class="site-title">L'Oréal AI Beauty Guide</h1>
       </header>
 
-      <!------- Chat Area ------->
-      <main>
-        <section class="chatbox">
-          <div id="chatWindow" class="chat-window">
-            <!-- messages will be appended here via JS -->
+      <main id="main-content" role="main">
+        <section class="chatbox" aria-label="Beauty consultation chatbot">
+          <div
+            id="chatWindow"
+            class="chat-window"
+            role="log"
+            aria-live="polite"
+            aria-label="Chat conversation"
+            tabindex="0"
+          >
+            <!-- Chat messages will appear here -->
           </div>
 
-          <form id="chatForm" class="chat-form">
-            <label for="userInput" class="visually-hidden">Message</label>
+          <form id="chatForm" class="chat-form" role="form">
+            <label for="userInput" class="visually-hidden">
+              Ask a beauty question or request advice
+            </label>
             <input
-              id="userInput"
-              name="userInput"
               type="text"
-              placeholder="Ask me about products or routines…"
-              autocomplete="off"
+              id="userInput"
+              name="userMessage"
+              placeholder="Ask me about beauty tips, skincare routines, or product recommendations..."
               required
+              autocomplete="off"
+              aria-describedby="input-help"
             />
-            <button type="submit" id="sendBtn">
-              <span class="material-icons">send</span>
+            <span id="input-help" class="visually-hidden">
+              Enter your beauty question and press send or hit enter
+            </span>
+            <button type="submit" aria-label="Send message">
+              <span class="material-icons" aria-hidden="true">send</span>
               <span class="visually-hidden">Send</span>
             </button>
           </form>
         </section>
       </main>
 
-      <!------- Footer Links ------->
-      <footer class="site-footer">
-        <p>&copy; 2025 Company Name. All rights reserved.</p>
-        <nav>
-          <!-- These URLs are placeholders -->
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Contact</a>
+      <footer class="site-footer" role="contentinfo">
+        <nav aria-label="Footer navigation">
+          <a href="#privacy" aria-label="Privacy Policy page">Privacy Policy</a>
+          <a href="#terms" aria-label="Terms of Service page"
+            >Terms of Service</a
+          >
+          <a href="#contact" aria-label="Contact us page">Contact</a>
         </nav>
+        <p>&copy; 2025 L'Oréal. All rights reserved.</p>
       </footer>
     </div>
 
-    <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-    <script src="secrets.js"></script>
+    <!-- Link to JavaScript file -->
     <script src="script.js"></script>
   </body>
 </html>

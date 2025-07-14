@@ -1,0 +1,1024 @@
+/* L'Oréal 90s Grunge Inspired Styles - Pink Makeup Theme */
+/* Maintains official L'Oréal brand colors with pink aesthetics and makeup elements */
+
+/* CSS Reset and Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  /* Dramatic makeup background with soft pink tones and glitter */
+  background: 
+    /* Glitter sparkles overlay */ radial-gradient(
+      circle at 10% 20%,
+      rgba(255, 182, 193, 0.8) 0%,
+      transparent 2%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 192, 203, 0.9) 0%,
+      transparent 2%
+    ),
+    radial-gradient(
+      circle at 40% 60%,
+      rgba(255, 105, 180, 0.7) 0%,
+      transparent 1.5%
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(255, 182, 193, 0.8) 0%,
+      transparent 1.5%
+    ),
+    radial-gradient(
+      circle at 30% 90%,
+      rgba(255, 20, 147, 0.6) 0%,
+      transparent 1%
+    ),
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(255, 192, 203, 0.8) 0%,
+      transparent 2%
+    ),
+    /* Makeup icon shapes - lipstick tubes */
+      linear-gradient(45deg, rgba(255, 182, 193, 0.3) 0%, transparent 30%),
+    linear-gradient(-45deg, rgba(255, 192, 203, 0.2) 0%, transparent 25%),
+    /* Eyeshadow palette patterns */
+      radial-gradient(
+        ellipse at 25% 25%,
+        rgba(255, 105, 180, 0.4) 0%,
+        transparent 40%
+      ),
+    radial-gradient(
+      ellipse at 75% 75%,
+      rgba(255, 20, 147, 0.3) 0%,
+      transparent 35%
+    ),
+    /* Powder compact circles */
+      radial-gradient(
+        circle at 60% 40%,
+        rgba(255, 182, 193, 0.5) 0%,
+        transparent 25%
+      ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 192, 203, 0.4) 0%,
+      transparent 30%
+    ),
+    /* Dramatic base gradient */
+      linear-gradient(
+        135deg,
+        #2a1a2a 0%,
+        #3d2140 25%,
+        #2d1b2e 50%,
+        #1a1a1a 75%,
+        #2a1a2a 100%
+      );
+  background-size: 5px 5px, 7px 7px, 3px 3px, 4px 4px, 6px 6px, 8px 8px,
+    150px 150px, 180px 180px, 200px 200px, 250px 250px, 300px 300px, 280px 280px,
+    100% 100%;
+  background-position: 0 0, 20px 20px, 40px 10px, 60px 30px, 80px 50px,
+    100px 70px, 0 0, 50px 50px, 100px 0, 0 100px, 150px 150px, 50px 200px, 0 0;
+  animation: glitterSparkle 4s ease-in-out infinite alternate;
+  color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Skip to main content for screen readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #ff69b4; /* Hot pink */
+  color: #000;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 0;
+  z-index: 1000;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid #ff1493;
+}
+.skip-link:focus {
+  top: 6px;
+}
+
+a {
+  color: #ff69b4; /* Hot pink */
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+  outline: 2px solid #ff69b4;
+  outline-offset: 2px;
+  color: #ff1493;
+  text-shadow: 0 0 8px rgba(255, 105, 180, 0.6);
+}
+
+.site-header {
+  background: 
+    /* Makeup brush strokes */ linear-gradient(
+      45deg,
+      rgba(255, 105, 180, 0.3) 0%,
+      transparent 30%
+    ),
+    linear-gradient(-45deg, rgba(255, 20, 147, 0.2) 0%, transparent 40%),
+    /* Base gradient */ linear-gradient(135deg, #000 0%, #2d1b2e 50%, #000 100%);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 4px solid #ff69b4;
+  box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Glitter effect */ radial-gradient(
+      circle at 25% 25%,
+      #ff69b4 1px,
+      transparent 1px
+    ),
+    radial-gradient(circle at 75% 75%, #ff1493 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, #ffc0cb 1px, transparent 1px);
+  background-size: 20px 20px, 25px 25px, 30px 30px;
+  opacity: 0.4;
+  pointer-events: none;
+  animation: glitter 3s infinite;
+}
+
+@keyframes glitter {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.site-title {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  letter-spacing: 2px;
+  margin: 0.5rem 0 0;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px #ffb6c1, 4px 4px 8px rgba(255, 182, 193, 0.6);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(45deg, #fff, #ffb6c1, #dda0dd, #fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleSparkle 4s ease-in-out infinite;
+}
+
+@keyframes titleSparkle {
+  0% {
+    text-shadow: 2px 2px 0px #ffb6c1, 4px 4px 8px rgba(255, 182, 193, 0.6);
+  }
+  50% {
+    text-shadow: 2px 2px 0px #ffc0cb, 4px 4px 12px rgba(255, 192, 203, 0.8),
+      0 0 20px rgba(255, 182, 193, 0.4);
+  }
+  100% {
+    text-shadow: 2px 2px 0px #ffb6c1, 4px 4px 8px rgba(255, 182, 193, 0.6);
+  }
+}
+
+.logo {
+  max-width: min(120px, 25vw);
+  height: auto;
+  display: block;
+  margin: 0 auto 0.5rem;
+  filter: drop-shadow(2px 2px 4px rgba(255, 105, 180, 0.7)) brightness(1.2)
+    contrast(1.3);
+  position: relative;
+  z-index: 1;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.chatbox {
+  max-width: 768px;
+  margin: 1rem auto;
+  background: 
+    /* Makeup palette background */ linear-gradient(
+    135deg,
+    rgba(255, 105, 180, 0.1) 0%,
+    rgba(42, 42, 42, 0.9) 20%,
+    rgba(255, 20, 147, 0.1) 40%,
+    rgba(26, 26, 26, 0.9) 60%,
+    rgba(255, 105, 180, 0.1) 80%,
+    rgba(42, 42, 42, 0.9) 100%
+  );
+  border: 3px solid #ff69b4;
+  border-radius: 0;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4),
+    inset 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  height: clamp(400px, 70vh, 600px);
+  overflow: hidden;
+  position: relative;
+}
+
+.chatbox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Lipstick streak pattern */ repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 105, 180, 0.1) 3px,
+      rgba(255, 105, 180, 0.1) 6px
+    ),
+    /* Blush brush strokes */
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 5px,
+        rgba(255, 20, 147, 0.08) 5px,
+        rgba(255, 20, 147, 0.08) 10px
+      );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.chat-window {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.95),
+    rgba(45, 27, 46, 0.95),
+    rgba(13, 13, 13, 0.95)
+  );
+  font-size: clamp(0.875rem, 2.5vw, 0.95rem);
+  scroll-behavior: smooth;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chat-window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    /* Lipstick tubes */ radial-gradient(
+      ellipse 8px 25px at 15% 20%,
+      rgba(255, 182, 193, 0.6) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 8px 25px at 85% 80%,
+      rgba(255, 192, 203, 0.5) 0%,
+      transparent 70%
+    ),
+    /* Makeup brushes */
+      linear-gradient(45deg, rgba(221, 160, 221, 0.4) 0%, transparent 15%),
+    linear-gradient(-45deg, rgba(218, 112, 214, 0.3) 0%, transparent 12%),
+    /* Eyeshadow palettes */
+      radial-gradient(
+        circle 20px at 25% 75%,
+        rgba(255, 182, 193, 0.4) 0%,
+        rgba(255, 192, 203, 0.2) 50%,
+        transparent 70%
+      ),
+    radial-gradient(
+      circle 18px at 75% 25%,
+      rgba(221, 160, 221, 0.4) 0%,
+      rgba(186, 85, 211, 0.2) 50%,
+      transparent 70%
+    ),
+    /* Glitter particles */
+      radial-gradient(
+        circle 2px at 30% 40%,
+        rgba(255, 255, 255, 0.8) 0%,
+        transparent 60%
+      ),
+    radial-gradient(
+      circle 1.5px at 70% 60%,
+      rgba(255, 182, 193, 0.9) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle 2.5px at 20% 80%,
+      rgba(255, 255, 255, 0.7) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      circle 1px at 80% 20%,
+      rgba(255, 192, 203, 0.8) 0%,
+      transparent 40%
+    );
+  background-size: 40px 80px, 40px 80px, 100px 100px, 120px 120px, 80px 80px,
+    90px 90px, 300px 300px, 250px 250px, 350px 350px, 200px 200px;
+  background-position: 0 0, 100% 100%, 20% 30%, 80% 70%, 10% 90%, 90% 10%, 0 0,
+    25% 25%, 50% 50%, 75% 75%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatingMakeup 8s ease-in-out infinite;
+}
+
+@keyframes floatingMakeup {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-5px) rotate(1deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-3px) rotate(-0.5deg);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-7px) rotate(0.8deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+}
+
+.chat-bubble {
+  padding: 1rem 1.2rem;
+  margin: 0.75rem 0;
+  border-radius: 12px;
+  max-width: 80%;
+  line-height: 1.5;
+  word-wrap: break-word;
+  animation: fadeIn 0.4s ease-in;
+  position: relative;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  border: 3px solid transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.chat-bubble::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ffb6c1, #ffc0cb, #dda0dd, #ffb6c1);
+  z-index: -1;
+  opacity: 0.7;
+  border-radius: 14px;
+  filter: blur(1px);
+  animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+  0% {
+    opacity: 0.7;
+    filter: blur(1px) brightness(1);
+  }
+  50% {
+    opacity: 0.9;
+    filter: blur(0.5px) brightness(1.2);
+  }
+  100% {
+    opacity: 0.8;
+    filter: blur(1.5px) brightness(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user {
+  align-self: flex-end;
+  background: linear-gradient(
+    135deg,
+    #fef7f7 0%,
+    #ffb6c1 20%,
+    #ffc0cb 60%,
+    #f8f8ff 100%
+  );
+  color: #4a4a4a;
+  margin-left: auto;
+  margin-right: 0;
+  border-left: 5px solid #ffb6c1;
+  border-right: 2px solid #ffc0cb;
+  font-weight: 600;
+  text-shadow: 0.5px 0.5px 1px rgba(255, 182, 193, 0.6);
+  position: relative;
+  box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+}
+
+.user::after {
+  content: "You ✨";
+  position: absolute;
+  top: -18px;
+  right: 8px;
+  font-size: 0.7rem;
+  color: #db7093;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 182, 193, 0.8);
+}
+
+.bot {
+  align-self: flex-start;
+  background: linear-gradient(
+    135deg,
+    #ffb6c1 0%,
+    #dda0dd 25%,
+    #da70d6 50%,
+    #ba55d3 75%,
+    #9370db 100%
+  );
+  color: #fff;
+  margin-right: auto;
+  margin-left: 0;
+  border-left: 5px solid #ffc0cb;
+  border-right: 2px solid #ffb6c1;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  position: relative;
+  box-shadow: 0 4px 15px rgba(186, 85, 211, 0.4);
+}
+
+.bot::after {
+  content: "L'Oréal AI 💄";
+  position: absolute;
+  top: -18px;
+  left: 8px;
+  font-size: 0.7rem;
+  color: #ffc0cb;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 192, 203, 0.8);
+}
+
+.chat-form {
+  display: flex;
+  border-top: 3px solid #ff69b4;
+  background: linear-gradient(
+    to right,
+    rgba(17, 17, 17, 0.9),
+    rgba(45, 27, 46, 0.9),
+    rgba(17, 17, 17, 0.9)
+  );
+  min-height: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.chat-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    rgba(42, 42, 42, 0.9) 0%,
+    rgba(45, 27, 46, 0.9) 50%,
+    rgba(26, 26, 26, 0.9) 100%
+  );
+  color: #fff;
+  font-size: 1rem;
+  min-height: 44px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.chat-form input:focus {
+  outline: 2px solid #ff69b4;
+  outline-offset: -2px;
+  background: linear-gradient(
+    135deg,
+    rgba(51, 51, 51, 0.9) 0%,
+    rgba(55, 35, 56, 0.9) 50%,
+    rgba(34, 34, 34, 0.9) 100%
+  );
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+}
+
+.chat-form input::placeholder {
+  color: #ffb6c1;
+  font-style: italic;
+}
+
+.chat-form button {
+  padding: 0 1.5rem;
+  background: linear-gradient(
+    135deg,
+    #ffb6c1 0%,
+    #dda0dd 30%,
+    #da70d6 70%,
+    #ba55d3 100%
+  );
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  position: relative;
+  border-radius: 8px;
+}
+
+.chat-form button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 70%,
+    rgba(255, 255, 255, 0.3) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  border-radius: 8px;
+  animation: buttonSparkle 2s ease-in-out infinite;
+}
+
+@keyframes buttonSparkle {
+  0% {
+    background: radial-gradient(
+      circle at 30% 70%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 50%
+    );
+  }
+  50% {
+    background: radial-gradient(
+      circle at 70% 30%,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 60%
+    );
+  }
+  100% {
+    background: radial-gradient(
+      circle at 30% 70%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 50%
+    );
+  }
+}
+
+.chat-form button:hover,
+.chat-form button:focus {
+  background: linear-gradient(
+    135deg,
+    #ffc0cb 0%,
+    #dda0dd 30%,
+    #da70d6 70%,
+    #9370db 100%
+  );
+  outline: 2px solid #ffb6c1;
+  outline-offset: -2px;
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.6),
+    inset 0 0 15px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.chat-form button:active {
+  transform: scale(0.98) translateY(0px);
+}
+
+.site-footer {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(45, 27, 46, 0.9) 50%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  font-size: 0.8rem;
+  margin-top: auto;
+  border-top: 3px solid #ff69b4;
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Nail polish brush strokes */ repeating-linear-gradient(
+    30deg,
+    transparent,
+    transparent 8px,
+    rgba(255, 105, 180, 0.1) 8px,
+    rgba(255, 105, 180, 0.1) 16px
+  );
+  pointer-events: none;
+}
+
+.site-footer nav {
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer nav a {
+  margin: 0 0.5rem;
+  padding: 0.25rem;
+  display: inline-block;
+  min-height: 44px;
+  line-height: 1.2;
+}
+
+.site-footer p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  color: #ffb6c1;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  body {
+    background-size: 150px 150px, 200px 200px, 120px 120px, 30px 30px, 30px 30px,
+      30px 30px, 30px 30px, 100% 100%;
+  }
+
+  .site-header {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .chatbox {
+    margin: 0.5rem;
+    border-radius: 0;
+    height: calc(100vh - 200px);
+  }
+
+  .chat-bubble {
+    max-width: 90%;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .chat-form input {
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .site-footer {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .site-footer nav a {
+    display: block;
+    margin: 0.25rem 0;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .chat-bubble {
+    border: 2px solid;
+  }
+
+  .user {
+    border-color: #000;
+  }
+
+  .bot {
+    border-color: #fff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .chat-bubble {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
+
+  .site-header::before {
+    animation: none !important;
+  }
+}
+
+/* Creative makeup background elements */
+.chatbox::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* Eyeshadow palette circles */ radial-gradient(
+      circle at 10% 20%,
+      rgba(255, 105, 180, 0.1) 0%,
+      transparent 8%
+    ),
+    radial-gradient(
+      circle at 30% 80%,
+      rgba(255, 20, 147, 0.1) 0%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(220, 20, 60, 0.1) 0%,
+      transparent 7%
+    ),
+    radial-gradient(
+      circle at 90% 70%,
+      rgba(255, 192, 203, 0.1) 0%,
+      transparent 5%
+    ),
+    /* Makeup brush texture */
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><filter id="makeup-noise"><feTurbulence baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="200" height="200" filter="url(%23makeup-noise)" opacity="0.05"/></svg>');
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glitter sparkle animation for dramatic effect */
+@keyframes glitterSparkle {
+  0% {
+    background-position: 0 0, 20px 20px, 40px 10px, 60px 30px, 80px 50px,
+      100px 70px, 0 0, 50px 50px, 100px 0, 0 100px, 150px 150px, 50px 200px, 0 0;
+  }
+  50% {
+    background-position: 10px 10px, 30px 30px, 50px 20px, 70px 40px, 90px 60px,
+      110px 80px, 25px 25px, 75px 75px, 125px 25px, 25px 125px, 175px 175px,
+      75px 225px, 0 0;
+  }
+  100% {
+    background-position: 5px 5px, 25px 25px, 45px 15px, 65px 35px, 85px 55px,
+      105px 75px, 15px 15px, 65px 65px, 115px 15px, 15px 115px, 165px 165px,
+      65px 215px, 0 0;
+  }
+}
+
+/* Custom Makeup Cursor Options and Glamorous Scrollbar */
+
+/* CURSOR OPTION 1: Classic Mascara Wand */
+.cursor-mascara {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="10" y="2" width="4" height="16" rx="2" fill="%23000" stroke="%23333" stroke-width="0.5"/><ellipse cx="12" cy="3" rx="1.5" ry="1" fill="%23ff69b4"/><circle cx="12" cy="18" r="3" fill="%23ff1493" stroke="%23000" stroke-width="1"/><text x="12" y="21" text-anchor="middle" font-size="4" fill="%23fff">M</text></svg>'),
+    auto;
+}
+
+/* CURSOR OPTION 2: Elegant Lipstick Tube */
+.cursor-lipstick-elegant {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="9" y="4" width="6" height="12" rx="3" fill="%23ffc0cb" stroke="%23ff69b4" stroke-width="1"/><ellipse cx="12" cy="6" rx="2.5" ry="1.5" fill="%23ff1493"/><rect x="10" y="16" width="4" height="4" rx="0.5" fill="%23c0c0c0" stroke="%23999" stroke-width="0.5"/><circle cx="12" cy="6" r="0.8" fill="%23fff" opacity="0.6"/></svg>'),
+    auto;
+}
+
+/* CURSOR OPTION 3: Makeup Brush */
+.cursor-brush {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><line x1="12" y1="2" x2="12" y2="18" stroke="%238b4513" stroke-width="3"/><ellipse cx="12" cy="19" rx="2" ry="3" fill="%23ffb6c1" opacity="0.8"/><circle cx="12" cy="2" r="1.5" fill="%23ff69b4"/></svg>'),
+    auto;
+}
+
+/* CURSOR OPTION 4: Nail Polish Bottle */
+.cursor-nail-polish {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="9" y="8" width="6" height="12" rx="1" fill="%23ff69b4" stroke="%23ff1493" stroke-width="1"/><rect x="10" y="6" width="4" height="3" fill="%23333"/><line x1="12" y1="6" x2="12" y2="3" stroke="%23333" stroke-width="2"/><circle cx="12" cy="3" r="1" fill="%23ff1493"/></svg>'),
+    auto;
+}
+
+/* CURSOR OPTION 5: Compact Mirror */
+.cursor-compact {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" fill="%23ffc0cb" stroke="%23ff69b4" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="%23fff" opacity="0.8"/><circle cx="12" cy="12" r="4" fill="%23ffb6c1" opacity="0.6"/></svg>'),
+    auto;
+}
+
+/* CURSOR OPTION 6: Volumizing Mascara (Different Style) */
+.cursor-mascara-volume {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="11" y="3" width="2" height="14" fill="%23000"/><ellipse cx="12" cy="17" rx="4" ry="2" fill="%23ff69b4" stroke="%23ff1493" stroke-width="1"/><text x="12" y="19" text-anchor="middle" font-size="3" fill="%23fff">VOLUME</text><path d="M8 4 L16 4 L15 6 L9 6 Z" fill="%23dda0dd"/></svg>'),
+    auto;
+}
+
+/* Apply your chosen cursor - Change the class name below to switch cursors */
+/* Options: cursor-mascara, cursor-lipstick-elegant, cursor-brush, cursor-nail-polish, cursor-compact, cursor-mascara-volume */
+
+body,
+* {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ffb6c1;stop-opacity:1" /><stop offset="50%" style="stop-color:%23ff69b4;stop-opacity:1" /><stop offset="100%" style="stop-color:%23ff1493;stop-opacity:1" /></linearGradient></defs><path d="M3 3 L18 12 L12 13 L9 18 Z" fill="url(%23pinkGrad)" stroke="%23fff" stroke-width="0.5"/><circle cx="6" cy="6" r="0.8" fill="%23fff" opacity="0.8"/><circle cx="10" cy="8" r="0.5" fill="%23fff" opacity="0.6"/><circle cx="14" cy="10" r="0.6" fill="%23fff" opacity="0.7"/></svg>'),
+    auto;
+}
+
+/* Interactive elements get pointer cursor with enhanced glitter */
+button,
+input[type="submit"],
+a,
+.clickable {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="pinkGradHover" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ffc0cb;stop-opacity:1" /><stop offset="50%" style="stop-color:%23ff1493;stop-opacity:1" /><stop offset="100%" style="stop-color:%23dc143c;stop-opacity:1" /></linearGradient></defs><path d="M3 3 L18 12 L12 13 L9 18 Z" fill="url(%23pinkGradHover)" stroke="%23fff" stroke-width="1"/><circle cx="6" cy="6" r="1" fill="%23fff" opacity="0.9"/><circle cx="10" cy="8" r="0.7" fill="%23fff" opacity="0.8"/><circle cx="14" cy="10" r="0.8" fill="%23fff" opacity="0.9"/><circle cx="8" cy="10" r="0.4" fill="%23fff" opacity="0.6"/><circle cx="12" cy="7" r="0.5" fill="%23fff" opacity="0.7"/></svg>'),
+    pointer;
+}
+
+/* Text input cursor - makeup brush for typing */
+input[type="text"],
+textarea,
+.chat-form input {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><line x1="12" y1="2" x2="12" y2="18" stroke="%238b4513" stroke-width="3"/><ellipse cx="12" cy="19" rx="2" ry="3" fill="%23ffb6c1" opacity="0.8"/><circle cx="12" cy="2" r="1.5" fill="%23ff69b4"/></svg>'),
+    text;
+}
+
+/* Custom Scrollbar Styling */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.9),
+    rgba(45, 27, 46, 0.9),
+    rgba(26, 26, 26, 0.9)
+  );
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(255, 182, 193, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to bottom,
+    #ffb6c1 0%,
+    #ff69b4 25%,
+    #ff1493 50%,
+    #dda0dd 75%,
+    #ba55d3 100%
+  );
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+::-webkit-scrollbar-thumb::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    to bottom,
+    #ffc0cb 0%,
+    #ff69b4 25%,
+    #ff1493 50%,
+    #da70d6 75%,
+    #9370db 100%
+  );
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.8),
+    inset 0 0 15px rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    to bottom,
+    #ff69b4 0%,
+    #ff1493 25%,
+    #dc143c 50%,
+    #ba55d3 75%,
+    #8b008b 100%
+  );
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.9),
+    inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-scrollbar-corner {
+  background: linear-gradient(
+    45deg,
+    rgba(26, 26, 26, 0.9),
+    rgba(45, 27, 46, 0.9)
+  );
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff69b4 rgba(26, 26, 26, 0.9);
+}
+
+/* Chat window specific scrollbar */
+.chat-window::-webkit-scrollbar {
+  width: 14px;
+}
+
+.chat-window::-webkit-scrollbar-track {
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, 0.95),
+    rgba(45, 27, 46, 0.95),
+    rgba(13, 13, 13, 0.95)
+  );
+  border-radius: 8px;
+  margin: 4px;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ffb6c1 0%, #dda0dd 50%, #ba55d3 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 182, 193, 0.3);
+  box-shadow: 0 0 8px rgba(255, 182, 193, 0.4),
+    inset 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.chat-window::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #ffc0cb 0%, #da70d6 50%, #9370db 100%);
+  box-shadow: 0 0 12px rgba(255, 192, 203, 0.6),
+    inset 0 0 12px rgba(255, 255, 255, 0.3);
+}
