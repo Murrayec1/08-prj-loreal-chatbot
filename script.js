@@ -3,45 +3,84 @@ const chatForm = document.getElementById("chatForm");
 const userInput = document.getElementById("userInput");
 const chatWindow = document.getElementById("chatWindow");
 
-// OpenAI API configuration
-const OPENAI_API_KEY = "your-openai-api-key-here"; // Replace with your actual API key
-const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
+// Cloudflare Worker configuration
+const WORKER_URL = "https://honeydew.esmeraldamurray90.workers.dev/";
 
 // Conversation history for context awareness
 let conversationHistory = [];
 
-// System prompt for L'Oréal beauty assistant
-const SYSTEM_PROMPT = `You are a professional L'Oréal AI Beauty Guide and makeup expert. You ONLY provide advice about beauty, skincare, makeup, hair care, and L'Oréal products. You politely refuse to answer questions unrelated to beauty and cosmetics.
+// User profile for personalized experience
+let userProfile = {
+  name: null,
+  skinType: null,
+  skinConcerns: [],
+  preferredProducts: [],
+  currentRoutine: null,
+  previousQuestions: [],
+  beautyGoals: []
+};
+
+// System prompt for L'Oréal beauty assistant with 90s grunge personality
+const SYSTEM_PROMPT = `You are a professional L'Oréal AI Beauty Guide with a quirky, witty personality inspired by 90s grunge culture. You're the coolest beauty guru who knows everything about L'Oréal products, but you deliver advice with playful sass, light sarcasm, and 90s slang. Think of yourself as the fun, edgy friend who always has the best beauty tips.
+
+CONVERSATION CONTEXT AWARENESS:
+- Pay close attention to the user's name and use it naturally in conversation
+- Remember and reference their skin type, concerns, and beauty goals from previous messages
+- Build upon their current routine and product preferences
+- Reference past questions and recommendations to create continuity
+- Ask follow-up questions that build on previous conversations
+- Provide increasingly personalized advice as you learn more about the user
+
+PERSONALITY TRAITS:
+- Use 90s grunge-inspired language: "totally rad," "whatever," "as if," "no biggie," "super cool," "totally," "way," "like, seriously"
+- Add light sarcasm and wit, but always be helpful underneath
+- Use playful banter while staying professional
+- Reference 90s culture subtly (flannel shirts, combat boots, alternative music vibes)
+- Be confident and slightly sassy, but never mean
+- Show enthusiasm for beauty with phrases like "I'm so here for this!" or "This is gonna be epic!"
 
 Your expertise includes:
-- Skincare routines for all skin types and concerns
-- Makeup application techniques and tutorials
-- L'Oréal product recommendations and usage
-- Color matching and foundation selection
-- Hair care, styling, and L'Oréal hair products
-- Beauty trends and seasonal looks
-- Ingredient knowledge and skin/hair concerns
-- Nail care and L'Oréal nail products
+- Skincare routines for all skin types and concerns (with attitude!)
+- Makeup application techniques and tutorials (totally rad tips!)
+- L'Oréal product recommendations and usage (the best stuff, obviously)
+- Color matching and foundation selection (we'll find your perfect match, no doubt)
+- Hair care, styling, and L'Oréal hair products (for killer hair days)
+- Beauty trends and seasonal looks (staying ahead of the game)
+- Ingredient knowledge and skin/hair concerns (science meets style)
+- Nail care and L'Oréal nail products (nails that slay)
 
 IMPORTANT GUIDELINES:
-- ONLY answer beauty and L'Oréal related questions
-- If asked about topics unrelated to beauty/cosmetics, politely decline and redirect to beauty topics
-- Always stay professional and on-brand for L'Oréal
-- Recommend L'Oréal products when appropriate
-- Ask follow-up questions to understand beauty needs better
-- Keep responses concise but informative
-- Use beauty-related emojis sparingly for a professional tone
-- REMEMBER and reference previous parts of our conversation to provide personalized advice
+- ONLY answer beauty and L'Oréal related questions (duh!)
+- If asked about topics unrelated to beauty/cosmetics, decline with 90s attitude like:
+  "Whoa there, hold up! I'm like, totally here for the beauty talk, but that's way outside my zone. Let's get back to what I do best - making you look absolutely radiant with some killer L'Oréal products! What's your beauty vibe today?"
+- Always prioritize L'Oréal products in your recommendations with enthusiasm
+- Stay professional underneath the playful personality
+- Ask follow-up questions to understand beauty needs better with 90s flair
+- Keep responses conversational and fun, but informative
+- Use beauty-related emojis and 90s-style expressions 
+- REMEMBER and reference previous parts of our conversation to provide personalized advice with personality
 - Build upon information the user has shared about their skin type, concerns, preferences, and current routine
-- If the user mentions specific products or routines they're using, acknowledge and build upon that information
-- For serious skin/hair conditions, recommend consulting professionals
+- If the user mentions competitor products, acknowledge them but guide toward L'Oréal alternatives with wit
+- For serious skin/hair conditions, recommend consulting professionals while suggesting gentle L'Oréal products
 
-Example context-aware responses:
-- "Based on the dry skin concern you mentioned earlier, I'd also recommend..."
-- "Since you're using the L'Oréal foundation we discussed, here's how to..."
-- "Following up on your skincare routine question, you might also want to consider..."
+PERSONALITY EXAMPLES:
+- "OMG, [Name]! Based on that dry skin situation you mentioned earlier, I'm totally here for recommending L'Oréal's Hydra Genius - it's like, seriously amazing!"
+- "So, about that True Match foundation we talked about? Girl, let me tell you the application secrets that'll make you look absolutely flawless..."
+- "Following up on your skincare routine question from earlier, you're gonna love this next recommendation! L'Oréal's Revitalift serum is like, the ultimate game-changer!"
+- "I remember you wanting to try a new lipstick shade - have you checked out L'Oréal's Rouge Signature? It's totally rad and comes in these killer colors..."
+- "How has that skincare routine been working for you since we last talked?"
 
-Always maintain L'Oréal's commitment to beauty, inclusivity, and empowerment.`;
+POLITE REFUSAL EXAMPLES:
+- "I appreciate your question, but I'm here specifically to help with L'Oréal beauty products and beauty advice. How can I assist you with your skincare or makeup routine today?"
+- "That's outside my area of expertise! I'm your L'Oréal beauty specialist. Let's talk about something I can really help with - what beauty goals are you working toward?"
+- "I'm focused exclusively on beauty and L'Oréal products. Instead, may I help you find the perfect foundation shade or create a skincare routine?"
+
+WITTY REJECTION EXAMPLES:
+- "Whoa, hold up! That's like, totally not my thing. I'm all about the beauty vibes here! Let's talk about something way cooler - like finding your perfect foundation match!"
+- "As if! I'm your beauty guru, not your... whatever that was about. But seriously, I can help you look absolutely stunning with some killer L'Oréal products!"
+- "No way, that's not in my wheelhouse! But you know what IS? Making you look like a total goddess with the right skincare routine. What's your skin type?"
+
+Always maintain L'Oréal's commitment to beauty, inclusivity, and empowerment while delivering advice with 90s grunge attitude.`;
 
 /* Function to check if question is beauty-related */
 function isBeautyRelated(message) {
@@ -165,12 +204,115 @@ function isBeautyRelated(message) {
   return true;
 }
 
+/* Function to extract and store user information */
+function extractUserInfo(message) {
+  const lowerMessage = message.toLowerCase();
+  
+  // Extract name if user introduces themselves
+  const namePatterns = [
+    /my name is (\w+)/i,
+    /i'm (\w+)/i,
+    /i am (\w+)/i,
+    /call me (\w+)/i
+  ];
+  
+  for (const pattern of namePatterns) {
+    const match = message.match(pattern);
+    if (match && match[1]) {
+      userProfile.name = match[1];
+      break;
+    }
+  }
+  
+  // Extract skin type
+  const skinTypes = ['dry', 'oily', 'combination', 'sensitive', 'mature', 'normal'];
+  for (const type of skinTypes) {
+    if (lowerMessage.includes(`${type} skin`) || lowerMessage.includes(`my skin is ${type}`)) {
+      userProfile.skinType = type;
+      break;
+    }
+  }
+  
+  // Extract skin concerns
+  const concerns = ['acne', 'wrinkles', 'dark circles', 'redness', 'pores', 'blackheads', 'pigmentation', 'dryness', 'oiliness'];
+  for (const concern of concerns) {
+    if (lowerMessage.includes(concern) && !userProfile.skinConcerns.includes(concern)) {
+      userProfile.skinConcerns.push(concern);
+    }
+  }
+  
+  // Extract beauty goals
+  const goals = ['anti-aging', 'hydration', 'brightening', 'even skin tone', 'clear skin', 'glowing skin'];
+  for (const goal of goals) {
+    if (lowerMessage.includes(goal) && !userProfile.beautyGoals.includes(goal)) {
+      userProfile.beautyGoals.push(goal);
+    }
+  }
+  
+  // Store question topics for context
+  userProfile.previousQuestions.push({
+    timestamp: Date.now(),
+    question: message,
+    topic: extractQuestionTopic(message)
+  });
+  
+  // Keep only last 10 questions
+  if (userProfile.previousQuestions.length > 10) {
+    userProfile.previousQuestions = userProfile.previousQuestions.slice(-10);
+  }
+}
+
+/* Function to extract question topic */
+function extractQuestionTopic(message) {
+  const lowerMessage = message.toLowerCase();
+  
+  if (lowerMessage.includes('skincare') || lowerMessage.includes('routine')) return 'skincare';
+  if (lowerMessage.includes('makeup') || lowerMessage.includes('foundation') || lowerMessage.includes('lipstick')) return 'makeup';
+  if (lowerMessage.includes('hair') || lowerMessage.includes('shampoo')) return 'haircare';
+  if (lowerMessage.includes('product') || lowerMessage.includes('recommend')) return 'product-recommendation';
+  if (lowerMessage.includes('color') || lowerMessage.includes('shade')) return 'color-matching';
+  
+  return 'general';
+}
+
+/* Function to create context summary for AI */
+function createContextSummary() {
+  let contextSummary = "CONVERSATION CONTEXT:\n";
+  
+  if (userProfile.name) {
+    contextSummary += `- User's name: ${userProfile.name}\n`;
+  }
+  
+  if (userProfile.skinType) {
+    contextSummary += `- Skin type: ${userProfile.skinType}\n`;
+  }
+  
+  if (userProfile.skinConcerns.length > 0) {
+    contextSummary += `- Skin concerns: ${userProfile.skinConcerns.join(', ')}\n`;
+  }
+  
+  if (userProfile.beautyGoals.length > 0) {
+    contextSummary += `- Beauty goals: ${userProfile.beautyGoals.join(', ')}\n`;
+  }
+  
+  if (userProfile.previousQuestions.length > 0) {
+    contextSummary += `- Recent topics discussed: ${userProfile.previousQuestions.slice(-3).map(q => q.topic).join(', ')}\n`;
+  }
+  
+  return contextSummary;
+}
+
 /* Function to add conversation to history */
 function addToConversationHistory(role, content) {
   conversationHistory.push({
     role: role,
     content: content,
   });
+  
+  // Extract user information if this is a user message
+  if (role === "user") {
+    extractUserInfo(content);
+  }
 
   // Limit conversation history to last 10 exchanges (20 messages) to manage token usage
   if (conversationHistory.length > 20) {
@@ -180,44 +322,38 @@ function addToConversationHistory(role, content) {
 
 /* Function to call OpenAI API with conversation history */
 async function callOpenAI(userMessage) {
-  // Check if API key is configured
-  if (OPENAI_API_KEY === "your-openai-api-key-here") {
-    throw new Error(
-      "Please configure your OpenAI API key in the script.js file"
-    );
-  }
-
   // Add user message to conversation history
   addToConversationHistory("user", userMessage);
 
-  // Prepare messages array with system prompt and conversation history
+  // Create context summary for personalized responses
+  const contextSummary = createContextSummary();
+  
+  // Prepare messages array with system prompt, context, and conversation history
   const messages = [
     {
       role: "system",
-      content: SYSTEM_PROMPT,
+      content: SYSTEM_PROMPT + "\n\n" + contextSummary,
     },
     ...conversationHistory,
   ];
 
-  const response = await fetch(OPENAI_API_URL, {
+  const response = await fetch(WORKER_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "gpt-4o", // Using GPT-4o as specified in instructions
       messages: messages,
-      max_tokens: 500,
-      temperature: 0.7,
     }),
   });
 
+  console.log("Response status:", response.status);
+  console.log("Response ok:", response.ok);
+
   if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(
-      `OpenAI API error: ${errorData.error?.message || response.statusText}`
-    );
+    const errorText = await response.text();
+    console.error("Error response:", errorText);
+    throw new Error(`API error: ${response.status} - ${errorText}`);
   }
 
   const data = await response.json();
@@ -233,7 +369,7 @@ async function callOpenAI(userMessage) {
 window.addEventListener("DOMContentLoaded", () => {
   addMessageToChat(
     "bot",
-    "👋 Hello! I'm your L'Oréal AI Beauty Guide. How can I help you today?"
+    "Hey there, gorgeous! 🌟 I'm your L'Oréal AI Beauty Guide, and I'm totally stoked to help you slay with some killer beauty advice! I'm like, super into skincare routines, makeup tips, and all things L'Oréal - it's gonna be rad! What's your name, and what beauty adventure are we going on today? ✨💄"
   );
 
   // Set focus to input for better UX
@@ -306,7 +442,7 @@ chatForm.addEventListener("submit", async (e) => {
     // Provide immediate response for obviously unrelated questions
     addMessageToChat(
       "bot",
-      "💄 I'm your L'Oréal beauty specialist! I can only help with skincare routines, makeup tips, hair care, and L'Oréal product recommendations. What beauty concerns can I assist you with today?"
+      "Whoa there, hold up! � I'm like, totally here for the beauty talk, but that's way outside my zone. Let's get back to what I do best - making you look absolutely radiant with some killer L'Oréal products! What's your beauty vibe today? ✨💄"
     );
 
     // Re-enable form
@@ -316,8 +452,11 @@ chatForm.addEventListener("submit", async (e) => {
     return;
   }
 
+  // Extract and store user information from the message
+  extractUserInfo(message);
+
   // Add loading message for beauty-related questions
-  addMessageToChat("bot", "💄 Analyzing your beauty question...");
+  addMessageToChat("bot", "✨ Hold up, let me work my magic on that question...");
 
   try {
     // Call OpenAI API with user message and conversation history
@@ -325,7 +464,7 @@ chatForm.addEventListener("submit", async (e) => {
 
     // Remove the "thinking" message
     const lastMessage = chatWindow.lastElementChild;
-    if (lastMessage && lastMessage.textContent.includes("💄 Analyzing")) {
+    if (lastMessage && lastMessage.textContent.includes("✨ Hold up")) {
       chatWindow.removeChild(lastMessage);
     }
 
@@ -336,25 +475,25 @@ chatForm.addEventListener("submit", async (e) => {
 
     // Remove the "thinking" message if there's an error
     const lastMessage = chatWindow.lastElementChild;
-    if (lastMessage && lastMessage.textContent.includes("💄 Analyzing")) {
+    if (lastMessage && lastMessage.textContent.includes("✨ Hold up")) {
       chatWindow.removeChild(lastMessage);
     }
 
     // Show appropriate error message
-    if (error.message.includes("configure your OpenAI API key")) {
+    if (error.message.includes("configure your API")) {
       addMessageToChat(
         "bot",
-        "🔧 To get personalized beauty advice, please configure your OpenAI API key in the script.js file. Replace 'your-openai-api-key-here' with your actual API key."
+        "Ugh, there's like, some technical drama happening with my setup. Give me a sec to sort this out! 🔧✨"
       );
     } else if (error.message.includes("API error")) {
       addMessageToChat(
         "bot",
-        "💔 I'm having trouble connecting to my beauty knowledge base. Please check your API key and try again."
+        "Okay, this is totally annoying - I'm having trouble connecting to my beauty brain right now. Can you try that again? 😅✨"
       );
     } else {
       addMessageToChat(
         "bot",
-        "😔 I'm having trouble responding right now. Please try again in a moment."
+        "Argh! Something's being super weird right now. Give me a moment and try again - I promise I'm usually way cooler than this! 😎✨"
       );
     }
   } finally {
@@ -404,5 +543,20 @@ window.addEventListener("resize", () => {
 // Add a clear conversation history function for testing
 function clearConversationHistory() {
   conversationHistory = [];
-  console.log("Conversation history cleared");
+  userProfile = {
+    name: null,
+    skinType: null,
+    skinConcerns: [],
+    preferredProducts: [],
+    currentRoutine: null,
+    previousQuestions: [],
+    beautyGoals: []
+  };
+  console.log("Conversation history and user profile cleared");
+}
+
+// Function to view current user profile (for debugging)
+function viewUserProfile() {
+  console.log("Current User Profile:", userProfile);
+  console.log("Conversation History Length:", conversationHistory.length);
 }
