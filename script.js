@@ -17,7 +17,7 @@ let userProfile = {
   preferredProducts: [],
   currentRoutine: null,
   previousQuestions: [],
-  beautyGoals: []
+  beautyGoals: [],
 };
 
 // System prompt for L'Oréal beauty assistant with 90s grunge personality
@@ -207,15 +207,15 @@ function isBeautyRelated(message) {
 /* Function to extract and store user information */
 function extractUserInfo(message) {
   const lowerMessage = message.toLowerCase();
-  
+
   // Extract name if user introduces themselves
   const namePatterns = [
     /my name is (\w+)/i,
     /i'm (\w+)/i,
     /i am (\w+)/i,
-    /call me (\w+)/i
+    /call me (\w+)/i,
   ];
-  
+
   for (const pattern of namePatterns) {
     const match = message.match(pattern);
     if (match && match[1]) {
@@ -223,39 +223,72 @@ function extractUserInfo(message) {
       break;
     }
   }
-  
+
   // Extract skin type
-  const skinTypes = ['dry', 'oily', 'combination', 'sensitive', 'mature', 'normal'];
+  const skinTypes = [
+    "dry",
+    "oily",
+    "combination",
+    "sensitive",
+    "mature",
+    "normal",
+  ];
   for (const type of skinTypes) {
-    if (lowerMessage.includes(`${type} skin`) || lowerMessage.includes(`my skin is ${type}`)) {
+    if (
+      lowerMessage.includes(`${type} skin`) ||
+      lowerMessage.includes(`my skin is ${type}`)
+    ) {
       userProfile.skinType = type;
       break;
     }
   }
-  
+
   // Extract skin concerns
-  const concerns = ['acne', 'wrinkles', 'dark circles', 'redness', 'pores', 'blackheads', 'pigmentation', 'dryness', 'oiliness'];
+  const concerns = [
+    "acne",
+    "wrinkles",
+    "dark circles",
+    "redness",
+    "pores",
+    "blackheads",
+    "pigmentation",
+    "dryness",
+    "oiliness",
+  ];
   for (const concern of concerns) {
-    if (lowerMessage.includes(concern) && !userProfile.skinConcerns.includes(concern)) {
+    if (
+      lowerMessage.includes(concern) &&
+      !userProfile.skinConcerns.includes(concern)
+    ) {
       userProfile.skinConcerns.push(concern);
     }
   }
-  
+
   // Extract beauty goals
-  const goals = ['anti-aging', 'hydration', 'brightening', 'even skin tone', 'clear skin', 'glowing skin'];
+  const goals = [
+    "anti-aging",
+    "hydration",
+    "brightening",
+    "even skin tone",
+    "clear skin",
+    "glowing skin",
+  ];
   for (const goal of goals) {
-    if (lowerMessage.includes(goal) && !userProfile.beautyGoals.includes(goal)) {
+    if (
+      lowerMessage.includes(goal) &&
+      !userProfile.beautyGoals.includes(goal)
+    ) {
       userProfile.beautyGoals.push(goal);
     }
   }
-  
+
   // Store question topics for context
   userProfile.previousQuestions.push({
     timestamp: Date.now(),
     question: message,
-    topic: extractQuestionTopic(message)
+    topic: extractQuestionTopic(message),
   });
-  
+
   // Keep only last 10 questions
   if (userProfile.previousQuestions.length > 10) {
     userProfile.previousQuestions = userProfile.previousQuestions.slice(-10);
@@ -265,40 +298,54 @@ function extractUserInfo(message) {
 /* Function to extract question topic */
 function extractQuestionTopic(message) {
   const lowerMessage = message.toLowerCase();
-  
-  if (lowerMessage.includes('skincare') || lowerMessage.includes('routine')) return 'skincare';
-  if (lowerMessage.includes('makeup') || lowerMessage.includes('foundation') || lowerMessage.includes('lipstick')) return 'makeup';
-  if (lowerMessage.includes('hair') || lowerMessage.includes('shampoo')) return 'haircare';
-  if (lowerMessage.includes('product') || lowerMessage.includes('recommend')) return 'product-recommendation';
-  if (lowerMessage.includes('color') || lowerMessage.includes('shade')) return 'color-matching';
-  
-  return 'general';
+
+  if (lowerMessage.includes("skincare") || lowerMessage.includes("routine"))
+    return "skincare";
+  if (
+    lowerMessage.includes("makeup") ||
+    lowerMessage.includes("foundation") ||
+    lowerMessage.includes("lipstick")
+  )
+    return "makeup";
+  if (lowerMessage.includes("hair") || lowerMessage.includes("shampoo"))
+    return "haircare";
+  if (lowerMessage.includes("product") || lowerMessage.includes("recommend"))
+    return "product-recommendation";
+  if (lowerMessage.includes("color") || lowerMessage.includes("shade"))
+    return "color-matching";
+
+  return "general";
 }
 
 /* Function to create context summary for AI */
 function createContextSummary() {
   let contextSummary = "CONVERSATION CONTEXT:\n";
-  
+
   if (userProfile.name) {
     contextSummary += `- User's name: ${userProfile.name}\n`;
   }
-  
+
   if (userProfile.skinType) {
     contextSummary += `- Skin type: ${userProfile.skinType}\n`;
   }
-  
+
   if (userProfile.skinConcerns.length > 0) {
-    contextSummary += `- Skin concerns: ${userProfile.skinConcerns.join(', ')}\n`;
+    contextSummary += `- Skin concerns: ${userProfile.skinConcerns.join(
+      ", "
+    )}\n`;
   }
-  
+
   if (userProfile.beautyGoals.length > 0) {
-    contextSummary += `- Beauty goals: ${userProfile.beautyGoals.join(', ')}\n`;
+    contextSummary += `- Beauty goals: ${userProfile.beautyGoals.join(", ")}\n`;
   }
-  
+
   if (userProfile.previousQuestions.length > 0) {
-    contextSummary += `- Recent topics discussed: ${userProfile.previousQuestions.slice(-3).map(q => q.topic).join(', ')}\n`;
+    contextSummary += `- Recent topics discussed: ${userProfile.previousQuestions
+      .slice(-3)
+      .map((q) => q.topic)
+      .join(", ")}\n`;
   }
-  
+
   return contextSummary;
 }
 
@@ -308,7 +355,7 @@ function addToConversationHistory(role, content) {
     role: role,
     content: content,
   });
-  
+
   // Extract user information if this is a user message
   if (role === "user") {
     extractUserInfo(content);
@@ -327,7 +374,7 @@ async function callOpenAI(userMessage) {
 
   // Create context summary for personalized responses
   const contextSummary = createContextSummary();
-  
+
   // Prepare messages array with system prompt, context, and conversation history
   const messages = [
     {
@@ -456,7 +503,10 @@ chatForm.addEventListener("submit", async (e) => {
   extractUserInfo(message);
 
   // Add loading message for beauty-related questions
-  addMessageToChat("bot", "✨ Hold up, let me work my magic on that question...");
+  addMessageToChat(
+    "bot",
+    "✨ Hold up, let me work my magic on that question..."
+  );
 
   try {
     // Call OpenAI API with user message and conversation history
@@ -550,7 +600,7 @@ function clearConversationHistory() {
     preferredProducts: [],
     currentRoutine: null,
     previousQuestions: [],
-    beautyGoals: []
+    beautyGoals: [],
   };
   console.log("Conversation history and user profile cleared");
 }
